@@ -7,8 +7,8 @@ OS=$(uname)
 if [ "$OS" = "Linux" ]; then
 	# Execute Linux-specific commands
 	echo "Running on Linux"
-	curl -o requirements.txt https://github.com/eco-gy/eco-gy-client/blob/main/requirements.txt
-	curl -o main.py https://github.com/eco-gy/eco-gy-client/blob/main/main.py
+	curl -o requirements.txt https://raw.githubusercontent.com/eco-gy/eco-gy-client/main/requirements.txt
+	curl -o main.py https://raw.githubusercontent.com/eco-gy/eco-gy-client/main/main.py
 	python -m venv venv
 	source bin/venv/activate
 	pip install -r requirements.txt
@@ -20,10 +20,10 @@ elif [ "$OSTYPE" = "msys" ]; then
   # Execute Windows-specific commands
   echo "Running on Windows"
   # Download the requirements.txt file from GitHub
-	curl -o requirements.txt https://github.com/eco-gy/eco-gy-client/blob/main/requirements.txt
+	curl -o requirements.txt https://raw.githubusercontent.com/eco-gy/eco-gy-client/main/requirements.txt
 
 	# Download the main.py file from GitHub
-	curl -o main.py https://github.com/eco-gy/eco-gy-client/blob/main/main.py
+	curl -o main.py https://raw.githubusercontent.com/eco-gy/eco-gy-client/main/main.py
 
 	# Create a new virtual environment using the `venv` module
 	python -m venv venv
