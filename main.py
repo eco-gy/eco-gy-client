@@ -13,6 +13,7 @@ import webbrowser
 
 device_uuid = ""
 url = "https://api.eco.gy"
+url_login = "https://eco.gy"
 
 
 def is_installed():
@@ -47,7 +48,7 @@ def install():
     f = open("setup.ini", "w")
     f.write(device_uuid)
     f.close()
-    webbrowser.open(url+'/login?device_uuid='+device_uuid)
+    webbrowser.open(url_login+'/login?device_uuid='+device_uuid)
     return
 
 
@@ -64,7 +65,7 @@ def main():
         data["cpu_freq"] = psutil.cpu_freq()[0]
         data["cpu_load"] = psutil.cpu_percent(interval=1, percpu=False)
         requests.post(url+"/ingest", json=data)
-        time.sleep(10)
+        time.sleep(0.1)
 
 
 main()
