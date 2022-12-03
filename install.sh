@@ -9,6 +9,7 @@ if [ "$OS" = "Linux" ]; then
 	echo "Running on Linux"
 	curl -o requirements.txt https://raw.githubusercontent.com/eco-gy/eco-gy-client/main/requirements.txt
 	curl -o run.sh https://raw.githubusercontent.com/eco-gy/eco-gy-client/main/run.sh
+	chmod +x run.sh
 	curl -o main.py https://raw.githubusercontent.com/eco-gy/eco-gy-client/main/main.py
 	python3 -m venv venv
 	source venv/bin/activate
