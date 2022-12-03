@@ -4,7 +4,8 @@ import requests
 import os.path
 import time
 import cpuinfo
-import uuid
+import GPUtil
+from gpuinfo import GPUInfo
 import webbrowser
 
 # gives a single float value
@@ -15,6 +16,8 @@ import webbrowser
 device_uuid = ""
 url = "https://2c94-46-253-188-135.eu.ngrok.io"
 
+
+print(GPUtil.getAvailable())
 
 def is_installed():
     global device_uuid
@@ -32,31 +35,43 @@ def is_installed():
 
 def install():
     global device_uuid
-    device_uuid = str(uuid.uuid4())
+    # Config
+    headers = {
+        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpbmd0cGRtcHNnc3R1emR6eW53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzAwODQ2MTQsImV4cCI6MTk4NTY2MDYxNH0.JzUxXmGHCjONBbFHN-GIi6kt5oxkBzp0OcxTcOwcmsg',
+        'Prefer': 'return=representation'}
+    data = {'user_id': 'NULL'}
+    supabase_url = 'https://vingtpdmpsgstuzdzynw.supabase.co/rest/v1/device_id'
+
+    # Create new device_id
+    resp = requests.post(supabase_url, json=data, headers=headers)
+
+    # Get device_id
+    device_uuid = resp.json()[0]['device_id']
+
     f = open("setup.ini", "w")
     f.write(device_uuid)
     f.close()
-    webbrowser.open(url+'/login?'+device_uuid)
+    webbrowser.open(url+'/login?device_uuid='+device_uuid)
     return
 
 
 # main
+def main():
+    if not is_installed():
+        install()
 
-if not is_installed():
-    install()
+    data = {'uuid': device_uuid}
 
-data = {'uuid': device_uuid}
-
-
-while 1:
-    data["ts"] = time.time()
-    data["cpu_name"] = cpuinfo.get_cpu_info()['brand_raw']
-    data["cpu_freq"] = psutil.cpu_freq()[0]
-    data["cpu_load"] = psutil.cpu_percent(interval=1, percpu=False)
-    requests.post(url+"/ingest", json=data)
-    time.sleep(10)
+    while 1:
+        data["ts"] = time.time()
+        data["cpu_name"] = cpuinfo.get_cpu_info()['brand_raw']
+        data["cpu_freq"] = psutil.cpu_freq()[0]
+        data["cpu_load"] = psutil.cpu_percent(interval=1, percpu=False)
+        requests.post(url+"/ingest", json=data)
+        time.sleep(10)
 
 
+main()
 
 #requests.post(url, data={key: value}, json={key: value}, args)
 
