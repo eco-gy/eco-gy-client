@@ -12,7 +12,7 @@ import webbrowser
 #print(psutil.net_io_counters())
 
 device_uuid = ""
-url = "https://api.eco.gy"
+url = "https://2c94-46-253-188-135.eu.ngrok.io"
 url_login = "https://eco.gy"
 
 
