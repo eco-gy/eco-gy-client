@@ -9,8 +9,8 @@ if [ "$OS" = "Linux" ]; then
 	echo "Running on Linux"
 	curl -o requirements.txt https://raw.githubusercontent.com/eco-gy/eco-gy-client/main/requirements.txt
 	curl -o main.py https://raw.githubusercontent.com/eco-gy/eco-gy-client/main/main.py
-	python -m venv venv
-	source bin/venv/activate
+	python3 -m venv venv
+	source venv/bin/activate
 	pip install -r requirements.txt
 	python main.py
 elif [ "$OS" = "Darwin" ]; then
@@ -21,19 +21,14 @@ elif [ "$OSTYPE" = "msys" ]; then
   echo "Running on Windows"
   # Download the requirements.txt file from GitHub
 	curl -o requirements.txt https://raw.githubusercontent.com/eco-gy/eco-gy-client/main/requirements.txt
-
 	# Download the main.py file from GitHub
 	curl -o main.py https://raw.githubusercontent.com/eco-gy/eco-gy-client/main/main.py
-
 	# Create a new virtual environment using the `venv` module
 	python -m venv venv
-
 	# Activate the virtual environment
 	venv\Scripts\activate
-
 	# Install the required packages from the requirements.txt file
 	pip install -r requirements.txt
-
 	# Execute the main.py script
 	python main.py
 else
