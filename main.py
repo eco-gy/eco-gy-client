@@ -4,8 +4,6 @@ import requests
 import os.path
 import time
 import cpuinfo
-import GPUtil
-from gpuinfo import GPUInfo
 import webbrowser
 
 # gives a single float value
@@ -15,9 +13,6 @@ import webbrowser
 
 device_uuid = ""
 url = "https://2c94-46-253-188-135.eu.ngrok.io"
-
-
-print(GPUtil.getAvailable())
 
 def is_installed():
     global device_uuid
@@ -72,6 +67,3 @@ def main():
 
 
 main()
-
-#requests.post(url, data={key: value}, json={key: value}, args)
-
