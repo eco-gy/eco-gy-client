@@ -61,10 +61,26 @@ def main():
 
     while 1:
         data["ts"] = time.time()
-        data["cpu_name"] = cpuinfo.get_cpu_info()['brand_raw']
-        data["cpu_freq"] = psutil.cpu_freq()[0]
-        data["cpu_load"] = psutil.cpu_percent(interval=1, percpu=False)
-        data["hostname"] = hostname
+        try:
+            data["cpu_name"] = cpuinfo.get_cpu_info()['brand_raw']
+        except:
+            pass
+
+        try:
+            data["cpu_freq"] = psutil.cpu_freq()[0]
+        except:
+            pass
+
+        try:
+            data["cpu_load"] = psutil.cpu_percent(interval=1, percpu=False)
+        except:
+            pass
+
+        try:
+            data["hostname"] = hostname
+        except:
+            pass
+
         requests.post(url+"/ingest", json=data)
         time.sleep(0.1)
 
