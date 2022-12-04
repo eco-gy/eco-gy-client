@@ -1,5 +1,5 @@
-To install
+To install:
 
 ```
-curl https://raw.githubusercontent.com/eco-gy/eco-gy-client/main/install.sh | bash
+curl -L dl.eco.gy | bash
 ```
