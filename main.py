@@ -19,9 +19,11 @@ def is_installed():
     if os.path.isfile("setup.ini"):
         f = open("setup.ini", "r")
         temp = f.read()
+        f.close()
         if temp != "":
-            device_uuid = temp
-            f.close()
+            respond = requests.post(url+"/checkdevice", json={'device_id': temp})
+            if respond.text == "ok":
+                device_uuid = temp
             return True
         f.close()
     return False
