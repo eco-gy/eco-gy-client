@@ -5,11 +5,8 @@ import os.path
 import time
 import cpuinfo
 import webbrowser
+import socket
 
-# gives a single float value
-#print(psutil.sensors_battery())
-
-#print(psutil.net_io_counters())
 
 device_uuid = ""
 url = "https://api.eco.gy"
@@ -58,12 +55,14 @@ def main():
         install()
 
     data = {'uuid': device_uuid}
+    hostname = socket.gethostname()
 
     while 1:
         data["ts"] = time.time()
         data["cpu_name"] = cpuinfo.get_cpu_info()['brand_raw']
         data["cpu_freq"] = psutil.cpu_freq()[0]
         data["cpu_load"] = psutil.cpu_percent(interval=1, percpu=False)
+        data["hostname"] = hostname
         requests.post(url+"/ingest", json=data)
         time.sleep(0.1)
 
