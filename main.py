@@ -45,7 +45,9 @@ def install():
     f = open("setup.ini", "w")
     f.write(device_uuid)
     f.close()
-    webbrowser.open(url_login+'/login?device_uuid='+device_uuid)
+    browser_url = url_login+'/login?device_uuid='+device_uuid
+    print(browser_url)
+    webbrowser.open(browser_url)
     return
 
 

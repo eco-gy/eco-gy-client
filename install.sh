@@ -16,8 +16,16 @@ if [ "$OS" = "Linux" ]; then
 	pip install -r requirements.txt
 	./run.sh
 elif [ "$OS" = "Darwin" ]; then
-  # Execute Mac-specific commands
-  echo "Running on Mac"
+	# Execute Mac-specific commands
+	echo "Running on Mac"
+  	curl -o requirements.txt https://raw.githubusercontent.com/eco-gy/eco-gy-client/main/requirements.txt
+	curl -o run.sh https://raw.githubusercontent.com/eco-gy/eco-gy-client/main/run.sh
+	chmod +x run.sh
+	curl -o main.py https://raw.githubusercontent.com/eco-gy/eco-gy-client/main/main.py
+	python3 -m venv venv
+	source venv/bin/activate
+	pip install -r requirements.txt
+	./run.sh
 elif [ "$OSTYPE" = "msys" ]; then
   # Execute Windows-specific commands
   echo "Running on Windows"
